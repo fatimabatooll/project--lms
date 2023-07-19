@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
 import { Select, MenuItem, Button } from '@mui/material';
 import data from "../data.json";
-import UserTable from './UserTable';
+import UserTable from '../components/table/UserTable';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
