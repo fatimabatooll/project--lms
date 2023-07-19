@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
 import { Select, MenuItem, Button } from '@mui/material';
 import data from "../data.json";
+import UserTable from './UserTable';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -124,6 +125,7 @@ export default function Searchbar() {
           </Box>
         </Toolbar>
       </AppBar>
+      <UserTable filteredPeople={filteredPeople}/>
     </Box>
   );
 }
