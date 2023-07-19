@@ -45,7 +45,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: '45ch',
+      width: '35ch',
       '&:focus': {
         width: '30ch',
       },
@@ -53,14 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const StyledSelect = styled(Select)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiSelect-selectMenu': {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    minWidth: '120px',
-  },
-}));
+
 
 export default function Searchbar() {
   const [inputVal, setInputVal] = React.useState("");
@@ -82,13 +75,12 @@ export default function Searchbar() {
     .filter((person) => selectedCategory === "" || person.categories === selectedCategory);
 
   const handleAddUser = () => {
-    // Implement the logic to add a new user here
     console.log('Add User button clicked');
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static"  sx={{ backgroundColor: '#61A5C2' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Search>
             <SearchIconWrapper>
@@ -102,9 +94,31 @@ export default function Searchbar() {
             />
           </Search>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-         <InputLabel id="demo-select-small-label">Sort by:</InputLabel>
-      <FormControl sx={{ m: 4, minWidth: 170 }} size="small">
-      <InputLabel id="demo-select-small-label">Categories</InputLabel>
+         <InputLabel id="demo-select-small-label" sx={{color:'white'}}>Sort by :</InputLabel>
+         <FormControl
+      sx={{
+        m: 5,
+        minWidth: 270,
+        marginRight: '150px',
+        marginLeft: '10px',
+        borderColor: 'white',
+        // '& .MuiOutlinedInput-notchedOutline': {
+        //   borderColor: 'white',
+        // },
+        // '&:hover .MuiOutlinedInput-notchedOutline': {
+        //   border: '1px solid white',
+        //   outline: 'none',
+        // },
+        // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        //   border: '1px solid white',
+        //   outline: 'none',
+        // },
+      }}
+      size="small"
+    >
+      <InputLabel id="demo-select-small-label" sx={{ color: 'white' }}>
+        Categories
+      </InputLabel>
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"
@@ -112,19 +126,19 @@ export default function Searchbar() {
         label="categories"
         onChange={handleCategoryChange}
       >
-              {Array.from(new Set(data.map((person) => person.categories))).map((category) => (
-                <MenuItem key={category} value={category}>{category}</MenuItem>
-              ))}
-         
-            </Select>
-        </FormControl>
-            
-            <Button variant="contained" onClick={handleAddUser}>
-              Add User
-            </Button>
+        {Array.from(new Set(data.map((person) => person.categories))).map((category) => (
+          <MenuItem key={category} value={category}>
+            {category}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
           </Box>
         </Toolbar>
       </AppBar>
+      <Button variant="contained" onClick={handleAddUser}>
+           Add User
+         </Button>
       <UserTable filteredPeople={filteredPeople}/>
     </Box>
   );
