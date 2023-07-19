@@ -3,9 +3,9 @@ import { DataGrid } from '@mui/x-data-grid'
 import React, { useMemo, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import './UserTable.css';
 
 function UserTable({ filteredPeople }) {
-    const theme = useTheme();
 
     const [pageSize, setPageSize] = useState(5);
     function handleOptionClick() {
@@ -13,16 +13,16 @@ function UserTable({ filteredPeople }) {
     }
 
     const columns = useMemo(() => [
-        { field: "photoUrl", headerName: "Avatar", width: 60, renderCell: params => <Avatar src={params.row.photoUrl} />, sortable: false, filterable: false },
+        { field: "photoUrl", headerName: "Avatar", width: 60, renderCell: params => <Avatar src={params.row.photoUrl} />, sortable: false, filterable: false , headerClassName: "bold-header"},
 
-        { field: "id", headerName: "Id", width: 60 },
-        { field: "firstName", headerName: "Name", width: 100, },
-        { field: "email", headerName: "Email", width: 250 },
-        { field: "gender", headerName: "Gender", width: 250 },
+        { field: "id", headerName: "Id", width: 60 , headerClassName: "bold-header"},
+        { field: "firstName", headerName: "Name", width: 100, headerClassName: "bold-header" },
+        { field: "email", headerName: "Email", width: 250, headerClassName: "bold-header" },
+        { field: "gender", headerName: "Gender", width: 250, headerClassName: "bold-header" },
 
-        { field: "categories", headerName: "Role", width: 100 },
+        { field: "categories", headerName: "Role", width: 100, headerClassName: "bold-header" },
         {
-            field: "options", headerName: "Options", width: 200,
+            field: "options", headerName: "Options", width: 200, headerClassName: "bold-header",
 
             renderCell: (params) => (
                 <>
@@ -30,13 +30,14 @@ function UserTable({ filteredPeople }) {
                         variant="outlined"
                         startIcon={<EditIcon />}
                         onClick={() => handleOptionClick()}
-                        style={{ marginRight: 10 }}
+                        style={{ marginRight: 10, color: "#468FAF", borderColor: "#468FAF" }}
                     >
                         Edit
                     </Button>
                     <Button
                         variant="outlined"
                         startIcon={<DeleteIcon />}
+                        style={{ color: "#2A6F97", borderColor: "#2A6F97" }}
                         onClick={() => handleOptionClick()}
                     >
                         Delete
@@ -59,11 +60,11 @@ function UserTable({ filteredPeople }) {
                 height: 600,
                 // width: 900,
                 // width: "100%",
-                margin:"5%",
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center'
-                
+                margin: "5%",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+
 
             }}>
             <DataGrid
@@ -73,7 +74,7 @@ function UserTable({ filteredPeople }) {
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-               
+
             />
         </Box>
     )
