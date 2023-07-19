@@ -7,8 +7,8 @@ import AddForm from './pages/AddForm';
 function App() {
   return (
     <>
-    <SearchAppBar/>
-    {/* <AddForm/> */}
+    {/* <SearchAppBar/> */}
+    <AddForm/>
     </>
   );
 }
