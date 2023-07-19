@@ -13,9 +13,9 @@ function UserTable({ filteredPeople }) {
     }
 
     const columns = useMemo(() => [
-        { field: "photoUrl", headerName: "Avatar", width: 60, renderCell: params => <Avatar src={params.row.photoUrl} />, sortable: false, filterable: false , headerClassName: "bold-header"},
+        { field: "photoUrl", headerName: "Avatar", width: 60, renderCell: params => <Avatar src={params.row.photoUrl} />, sortable: false, filterable: false, headerClassName: "bold-header" },
 
-        { field: "id", headerName: "Id", width: 60 , headerClassName: "bold-header"},
+        { field: "id", headerName: "Id", width: 60, headerClassName: "bold-header" },
         { field: "firstName", headerName: "Name", width: 100, headerClassName: "bold-header" },
         { field: "email", headerName: "Email", width: 250, headerClassName: "bold-header" },
         { field: "gender", headerName: "Gender", width: 250, headerClassName: "bold-header" },
@@ -74,7 +74,15 @@ function UserTable({ filteredPeople }) {
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-
+                sx={{
+                    border: 'none',
+                    '.MuiDataGrid-columnHeader:focus': {
+                        outline: 'none',
+                    },
+                    '.MuiDataGrid-cell:focus': {
+                        outline: 'none',
+                    },
+                }}
             />
         </Box>
     )
