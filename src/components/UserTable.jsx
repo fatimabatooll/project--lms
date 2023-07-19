@@ -1,10 +1,12 @@
-import { Avatar, Box, Button } from '@mui/material'
+import { Avatar, Box, Button, useTheme } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useMemo, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 function UserTable({ filteredPeople }) {
+    const theme = useTheme();
+
     const [pageSize, setPageSize] = useState(5);
     function handleOptionClick() {
         console.log("hello")
@@ -14,8 +16,10 @@ function UserTable({ filteredPeople }) {
         { field: "photoUrl", headerName: "Avatar", width: 60, renderCell: params => <Avatar src={params.row.photoUrl} />, sortable: false, filterable: false },
 
         { field: "id", headerName: "Id", width: 60 },
-        { field: "firstName", headerName: "Name", width: 100 },
+        { field: "firstName", headerName: "Name", width: 100, },
         { field: "email", headerName: "Email", width: 250 },
+        { field: "gender", headerName: "Gender", width: 250 },
+
         { field: "categories", headerName: "Role", width: 100 },
         {
             field: "options", headerName: "Options", width: 200,
@@ -46,15 +50,20 @@ function UserTable({ filteredPeople }) {
         id: person.id,
         firstName: person.first_name,
         email: person.email,
+        gender: person.gender,
         categories: person.categories,
     }));
     return (
         <Box
             sx={{
                 height: 600,
-                width: "100%",
+                // width: 900,
+                // width: "100%",
                 margin:"5%",
-                marginLeft:"5%",
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
+                
 
             }}>
             <DataGrid
@@ -64,6 +73,7 @@ function UserTable({ filteredPeople }) {
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+               
             />
         </Box>
     )
