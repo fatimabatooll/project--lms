@@ -145,9 +145,9 @@ const AddForm = () => {
                       <MenuItem value="">
                         <em>Type</em>
                       </MenuItem>
-                      <MenuItem value={10}>Admin</MenuItem>
-                      <MenuItem value={20}>Instructor</MenuItem>
-                      <MenuItem value={30}>Learner</MenuItem>
+                      <MenuItem value='admin'>Admin</MenuItem>
+                      <MenuItem value='instructor'>Instructor</MenuItem>
+                      <MenuItem value='learner'>Learner</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -169,7 +169,7 @@ const AddForm = () => {
                     style={{ display: 'none' }}
                   />
                   <label htmlFor="image-upload">
-                    <Button variant="contained" component="span">
+                    <Button variant="contained" sx={{backgroundColor:"#61A5C2"}}>
                       Upload Image
                     </Button>
                   </label>
@@ -182,9 +182,12 @@ const AddForm = () => {
                     label="Active"
                   />
                 </Grid>
-                <Button type="submit" variant="contained" color="primary">
+
+                <Grid item xs={12}>
+                <Button type="submit" variant="contained"  sx={{backgroundColor:"#61A5C2"}}>
                   Submit
                 </Button>
+                </Grid>
               </Grid>
             </form>
           </Paper>
