@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,6 +9,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Paper, Box, Button } from '@mui/material';
 import cryptoRandomString from 'crypto-random-string';
+
+
+
 const AddForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -39,6 +42,9 @@ const AddForm = () => {
       setPassword(userPassword)
     }
   }
+  useEffect(() => {
+    console.log('Password:', password);
+  }, [password]);
   const generateRandomPassword = () => {
     return cryptoRandomString({ length: 10, type: 'alphanumeric' });
   };
@@ -52,7 +58,6 @@ const AddForm = () => {
     console.log('Last Name:', lastName);
     console.log('Email:', email);
     console.log('FullName:', fullName);
-    console.log('Password:', password);
     console.log('Type:', type);
     console.log('Image:', imageFile);
     console.log('Is Active:', isActive);
@@ -177,7 +182,7 @@ const AddForm = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                <Button type="submit" variant="contained" component="span"  sx={{backgroundColor:"#61A5C2"}}>
+                <Button type="submit" variant="contained"   sx={{backgroundColor:"#61A5C2"}}>
                   Submit
                 </Button>
                 </Grid>
