@@ -38,6 +38,7 @@ const AddForm = () => {
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
+    console.log('FullName:', fullName);
     console.log('Password:', password);
     console.log('Type:', type);
     console.log('Image:', imageFile);
@@ -127,9 +128,9 @@ const AddForm = () => {
                       <MenuItem value="">
                         <em>Type</em>
                       </MenuItem>
-                      <MenuItem value={admin}>Admin</MenuItem>
-                      <MenuItem value={instructor}>Instructor</MenuItem>
-                      <MenuItem value={learner}>Learner</MenuItem>
+                      <MenuItem value="admin">Admin</MenuItem>
+                      <MenuItem value="instructor">Instructor</MenuItem>
+                      <MenuItem value="learner">Learner</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -151,7 +152,7 @@ const AddForm = () => {
                     style={{ display: 'none' }}
                   />
                   <label htmlFor="image-upload">
-                    <Button variant="contained" component="span">
+                    <Button variant="contained" component="span" sx={{backgroundColor:"#61a5c2"}}>
                       Upload Image
                     </Button>
                   </label>
@@ -164,9 +165,11 @@ const AddForm = () => {
                     label="Active"
                   />
                 </Grid>
-                <Button type="submit" variant="contained" color="primary">
+                <Grid item xs={12}>
+                <Button type="submit" variant="contained" component="span"  sx={{backgroundColor:"#61a5c2"}}>
                   Submit
                 </Button>
+                </Grid>
               </Grid>
             </form>
           </Paper>
