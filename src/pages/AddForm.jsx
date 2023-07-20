@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,7 +9,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Paper, Box, Button } from '@mui/material';
 import cryptoRandomString from 'crypto-random-string';
-
 const AddForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -19,12 +18,10 @@ const AddForm = () => {
   const [type, setType] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [isActive, setIsActive] = useState(false);
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
   };
-  
   const handleFirstName = (e) => {
     setFirstName(e.target.value)
     setFullName(e.target.value + ' ' + lastName)
@@ -33,7 +30,6 @@ const AddForm = () => {
     setLastName(e.target.value)
     setFullName(firstName + ' ' + e.target.value)
   }
-  
   const handlePassword = (e) => {
     const userPassword = e.target.value;
     if(userPassword === '') {
@@ -43,16 +39,11 @@ const AddForm = () => {
       setPassword(userPassword)
     }
   }
-
   const generateRandomPassword = () => {
     return cryptoRandomString({ length: 10, type: 'alphanumeric' });
   };
-  useEffect(() => {
-    console.log('Password:', password);
-  }, [password]);
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if(!password) {
       const randomPassword = generateRandomPassword()
       setPassword(randomPassword)
@@ -60,11 +51,12 @@ const AddForm = () => {
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
+    console.log('FullName:', fullName);
+    console.log('Password:', password);
     console.log('Type:', type);
     console.log('Image:', imageFile);
     console.log('Is Active:', isActive);
   };
-
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -135,7 +127,7 @@ const AddForm = () => {
            />
          </Grid>
                 <Grid item xs={12} sm={6}>
-                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} required>
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
@@ -147,9 +139,9 @@ const AddForm = () => {
                       <MenuItem value="">
                         <em>Type</em>
                       </MenuItem>
-                      <MenuItem value='admin'>Admin</MenuItem>
-                      <MenuItem value='instructor'>Instructor</MenuItem>
-                      <MenuItem value='learner'>Learner</MenuItem>
+                      <MenuItem value="admin">Admin</MenuItem>
+                      <MenuItem value="instructor">Instructor</MenuItem>
+                      <MenuItem value="learner">Learner</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -159,6 +151,7 @@ const AddForm = () => {
                     label="Image Title"
                     variant="standard"
                     value={imageFile ? imageFile.name : ''}
+                    // Add any additional form fields you need here.
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -170,7 +163,7 @@ const AddForm = () => {
                     style={{ display: 'none' }}
                   />
                   <label htmlFor="image-upload">
-                    <Button variant="contained" sx={{backgroundColor:"#61A5C2"}}>
+                    <Button variant="contained" component="span" sx={{backgroundColor:"#61A5C2"}}>
                       Upload Image
                     </Button>
                   </label>
@@ -183,9 +176,8 @@ const AddForm = () => {
                     label="Active"
                   />
                 </Grid>
-
                 <Grid item xs={12}>
-                <Button type="submit" variant="contained"  sx={{backgroundColor:"#61A5C2"}}>
+                <Button type="submit" variant="contained" component="span"  sx={{backgroundColor:"#61A5C2"}}>
                   Submit
                 </Button>
                 </Grid>
@@ -197,5 +189,4 @@ const AddForm = () => {
     </>
   );
 };
-
 export default AddForm;
