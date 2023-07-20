@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -47,6 +47,9 @@ const AddForm = () => {
   const generateRandomPassword = () => {
     return cryptoRandomString({ length: 10, type: 'alphanumeric' });
   };
+  useEffect(() => {
+    console.log('Password:', password);
+  }, [password]);
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -57,7 +60,6 @@ const AddForm = () => {
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
-    console.log('Password:', password);
     console.log('Type:', type);
     console.log('Image:', imageFile);
     console.log('Is Active:', isActive);
@@ -133,7 +135,7 @@ const AddForm = () => {
            />
          </Grid>
                 <Grid item xs={12} sm={6}>
-                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} required>
                     <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
@@ -157,7 +159,6 @@ const AddForm = () => {
                     label="Image Title"
                     variant="standard"
                     value={imageFile ? imageFile.name : ''}
-                    // Add any additional form fields you need here.
                   />
                 </Grid>
                 <Grid item xs={12}>
