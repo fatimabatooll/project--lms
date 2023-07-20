@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Paper, Box, Button } from '@mui/material';
+import cryptoRandomString from 'crypto-random-string';
 
 const AddForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -32,9 +33,27 @@ const AddForm = () => {
     setLastName(e.target.value)
     setFullName(firstName + ' ' + e.target.value)
   }
+  
+  const handlePassword = (e) => {
+    const userPassword = e.target.value;
+    if(userPassword === '') {
+      const randomPassword = generateRandomPassword()
+      setPassword(randomPassword);
+    } else {
+      setPassword(userPassword)
+    }
+  }
 
+  const generateRandomPassword = () => {
+    return cryptoRandomString({ length: 10, type: 'alphanumeric' });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if(!password) {
+      const randomPassword = generateRandomPassword()
+      setPassword(randomPassword)
+    }
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
@@ -93,7 +112,6 @@ const AddForm = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    required
                     id="password"
                     name="password"
                     label="Password"
@@ -101,8 +119,8 @@ const AddForm = () => {
                     autoComplete="new-password"
                     variant="standard"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                    onChange={handlePassword}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                <TextField
