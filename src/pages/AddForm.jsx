@@ -12,6 +12,7 @@ import { Paper, Box, Button } from '@mui/material';
 const AddForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [type, setType] = useState('');
@@ -22,6 +23,15 @@ const AddForm = () => {
     const file = event.target.files[0];
     setImageFile(file);
   };
+  
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value)
+    setFullName(e.target.value + ' ' + lastName)
+  }
+  const handleLastName = (e) => {
+    setLastName(e.target.value)
+    setFullName(firstName + ' ' + e.target.value)
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,10 +61,10 @@ const AddForm = () => {
                     autoComplete="given-name"
                     variant="standard"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
+                    onChange={handleFirstName}
+                    />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     id="lastName"
@@ -64,7 +74,7 @@ const AddForm = () => {
                     autoComplete="family-name"
                     variant="standard"
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                 onChange={handleLastName}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -94,18 +104,16 @@ const AddForm = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-
-             <TextField
-            id="outlined-read-only-input"
-            label="Read Only"
+               <TextField
+             id="outlined-read-only-input"
+             label="Read Only"
              variant="standard"
-
-           defaultValue=""
-           InputProps={{
-            readOnly: true,
+             value={fullName}
+             InputProps={{
+             readOnly: true,
              }}
-                />
-        </Grid>
+           />
+         </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
@@ -119,13 +127,13 @@ const AddForm = () => {
                       <MenuItem value="">
                         <em>Type</em>
                       </MenuItem>
-                      <MenuItem value={10}>Admin</MenuItem>
-                      <MenuItem value={20}>Instructor</MenuItem>
-                      <MenuItem value={30}>Learner</MenuItem>
+                      <MenuItem value={admin}>Admin</MenuItem>
+                      <MenuItem value={instructor}>Instructor</MenuItem>
+                      <MenuItem value={learner}>Learner</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Image Title"
