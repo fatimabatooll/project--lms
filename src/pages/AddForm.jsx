@@ -7,7 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Paper, Box, Button } from '@mui/material';
+import { PhotoCamera } from "@mui/icons-material";
+import { Paper, Box, Button, IconButton, Typography } from '@mui/material';
 import cryptoRandomString from 'crypto-random-string';
 
 
@@ -21,6 +22,7 @@ const AddForm = () => {
   const [type, setType] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [isActive, setIsActive] = useState(false);
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImageFile(file);
@@ -33,31 +35,33 @@ const AddForm = () => {
     setLastName(e.target.value)
     setFullName(firstName + ' ' + e.target.value)
   }
-  const handlePassword = (e) => {
-    const userPassword = e.target.value;
-    if(userPassword === '') {
-      const randomPassword = generateRandomPassword()
-      setPassword(randomPassword);
-    } else {
-      setPassword(userPassword)
-    }
-  }
-  useEffect(() => {
-    console.log('Password:', password);
-  }, [password]);
+  // const handlePassword = (e) => {
+  //   const userPassword = e.target.value;
+  //   setPassword(userPassword);
+
+  // }
+  
   const generateRandomPassword = () => {
     return cryptoRandomString({ length: 10, type: 'alphanumeric' });
   };
+  useEffect(() => {
+    console.log('Password:', password);
+  }, [password]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!password) {
-      const randomPassword = generateRandomPassword()
-      setPassword(randomPassword)
+    
+    if (!password) {
+      setPassword((prevPassword) => {
+        const randomPassword = prevPassword || generateRandomPassword();
+        return randomPassword;
+      });
     }
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
     console.log('Email:', email);
     console.log('FullName:', fullName);
+    // console.log('Password:', password);
     console.log('Type:', type);
     console.log('Image:', imageFile);
     console.log('Is Active:', isActive);
@@ -65,7 +69,9 @@ const AddForm = () => {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Box sx={{ maxWidth: '700px', p: 4, border: '1px solid #ccc', borderRadius: '4px' }}>
+        
+           <Box sx={{ maxWidth: '700px', p: 4, border: '1px solid #ccc', borderRadius: '4px' }}>
+              
           <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={3}>
@@ -117,13 +123,13 @@ const AddForm = () => {
                     autoComplete="new-password"
                     variant="standard"
                     value={password}
-                    onChange={handlePassword}
+                    onChange={(e) => setPassword(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                <TextField
              id="outlined-read-only-input"
-             label="Read Only"
+             label="user name"
              variant="standard"
              value={fullName}
              InputProps={{
@@ -151,27 +157,25 @@ const AddForm = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Image Title"
-                    variant="standard"
-                    value={imageFile ? imageFile.name : ''}
-                    // Add any additional form fields you need here.
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="image-upload"
-                    onChange={handleImageChange}
-                    style={{ display: 'none' }}
-                  />
-                  <label htmlFor="image-upload">
-                    <Button variant="contained" component="span" sx={{backgroundColor:"#61A5C2"}}>
-                      Upload Image
-                    </Button>
-                  </label>
+                  <IconButton
+                    component="label"
+                    htmlFor="image-upload"
+                    sx={{
+                      backgroundColor: '#61A5C2',
+                      '&:hover': {
+                        backgroundColor: '#3889a3', 
+                      },
+                    }}
+                  >
+                    <PhotoCamera sx={{ fontSize: 26, color: 'white' }} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="image-upload"
+                      onChange={handleImageChange}
+                      style={{ display: 'none' }}
+                    />
+                  </IconButton>
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
@@ -183,7 +187,7 @@ const AddForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                 <Button type="submit" variant="contained"   sx={{backgroundColor:"#61A5C2"}}>
-                  Submit
+                 Create User
                 </Button>
                 </Grid>
               </Grid>
